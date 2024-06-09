@@ -22,7 +22,6 @@ function App() {
         <Route path="/orders" element={<Orders />} />
         {/* フード一覧ページ（レストランID付き） */}
         <Route path="/restaurants/:restaurantsId/foods" element={<Foods />} />
-
       </Routes>
     </Router>
   );
