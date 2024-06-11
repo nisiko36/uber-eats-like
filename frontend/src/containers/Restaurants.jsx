@@ -111,14 +111,6 @@ export const Restaurants = () => {
                         )
                 }
             </RestaurantsContentsList>
-
-            {
-                state.restaurantsList.map(restaurant =>
-                    <div key ={restaurant.id}>
-                        {restaurant.name}
-                    </div>
-                )
-            }
         </div>
     )
 }
