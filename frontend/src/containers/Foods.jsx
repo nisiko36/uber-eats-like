@@ -1,20 +1,52 @@
-import React, { useEffect }from 'react';
+import React, { useEffect, useReducer }from 'react';
+import { useParams } from 'react-router-dom';
+// reducers
+import {
+    initialState as foodsInitialState,
+    foodsActionTyps,
+    foodsReducer,
+} from '../reducers/foods';
 // apis
 import { fetchFoods } from '../apis/foods';
+// constants
+import { REQUEST_STATE } from '../constants';
 
-export const Foods = ({
-    match
-}) => {
+export const Foods = () => {
+    const { restaurantsId } = useParams();
+    const [foodsState, dispatch] = useReducer(foodsReducer, foodsInitialState);
+
     useEffect(() => {
-        fetchFoods(1)
-        .then((data) =>
-            console.log(data)
-        )
-    }, [])
+        dispatch({ type: foodsActionTyps.FETCHING });
+        fetchFoods(restaurantsId)
+            .then((data) => {
+                dispatch({
+                    type: foodsActionTyps.FETCH_SUCCESS,
+                    payload: {
+                        foods: data.foods
+                    }
+                });
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    }, [restaurantsId])
 
     return (
         <div>
-            フード一覧
+            {
+                foodsState.fetchState === REQUEST_STATE.LOADING ?
+                <>
+                    <p>
+                    ロード中...
+                    </p>
+                </>
+                :
+                foodsState.foodsList.map(food =>
+                    <div key={food.id}>
+                    {food.name}
+                    </div>
+                )
+            }
         </div>
     )
 }
