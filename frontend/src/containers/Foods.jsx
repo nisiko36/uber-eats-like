@@ -1,13 +1,20 @@
-import React from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useEffect }from 'react';
+// apis
+import { fetchFoods } from '../apis/foods';
 
-export const Foods = () => {
-    const { restaurantsId } = useParams();
+export const Foods = ({
+    match
+}) => {
+    useEffect(() => {
+        fetchFoods(1)
+        .then((data) =>
+            console.log(data)
+        )
+    }, [])
 
     return (
         <div>
             フード一覧
-            <p>restaurantsIdは{restaurantsId}です</p>
         </div>
     )
 }
