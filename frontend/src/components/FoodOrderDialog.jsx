@@ -19,7 +19,7 @@ const DescriptionWrapper = styled.div`
 `;
 
 export const FoodOrderDialog = ({
-    food,
+    food ,
     isOpen,
     onClose,
 }) => {

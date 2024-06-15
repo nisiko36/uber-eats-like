@@ -115,7 +115,11 @@ export const Foods = () => {
                         <ItemWrapper key={food.id}>
                             <FoodWrapper
                                 food={food}
-                                onClickFoodWrapper={(food) => console.log(food)}
+                                onClickFoodWrapper={(food) => setState({
+                                    ...state,
+                                    selectedFood: food,
+                                    isOpenOrderDialog: true,
+                                })}
                                 imageUrl={FoodImage}
                             />
                         </ItemWrapper>
